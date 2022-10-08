@@ -34,8 +34,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class Window extends JFrame {
-    private int width_screen = RunHere.width;
-    private int height_screen = RunHere.height;
+    private int width_screen;
+    private int height_screen;
 
     public static org.fife.ui.rsyntaxtextarea.RSyntaxTextArea workArea;
     private RTextScrollPane  scrollPane;
@@ -47,6 +47,11 @@ public class Window extends JFrame {
     private String currentTime;
     private int times = 0;
     Window() {
+        Toolkit tit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = tit.getScreenSize();
+        width_screen = screenSize.width;
+        height_screen = screenSize.height;
+
         init(width_screen, height_screen);
         jf.setVisible(true);
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -233,7 +238,7 @@ public class Window extends JFrame {
     }
 
     void Search(){
-        new search(RunHere.width,RunHere.height);
+        new search(width_screen,height_screen);
     }
 
     //Get the Current time and pass in the currentTime.
