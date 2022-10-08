@@ -39,7 +39,7 @@ public class Window extends JFrame {
 
     public static org.fife.ui.rsyntaxtextarea.RSyntaxTextArea workArea;
     private RTextScrollPane  scrollPane;
-    public static JFrame jf = new JFrame();
+    public  JFrame jf = new JFrame();
     public static File file;
     private JLabel Time;
     private FileDialog saveDia;
@@ -101,7 +101,6 @@ public class Window extends JFrame {
         menuBar.add(Time);
         Time.setVisible(false);
 
-
         //File
         JMenuItem fileItem_new = new JMenuItem("new");
         JMenuItem fileItem_open = new JMenuItem("open");
@@ -134,52 +133,7 @@ public class Window extends JFrame {
 
         //View Menu
         JMenuItem viewItem_TD = new JMenuItem("Time and Date");
-
-
-//        //Set font and background color in Menu View
-//        JMenu Font = new JMenu("Font");
-//        JMenuItem F_Blue = new JMenuItem("Blue");
-//        JMenuItem F_Black = new JMenuItem("Black");
-//        JMenuItem F_RED = new JMenuItem("Red");
-//        JMenuItem F_Green = new JMenuItem("Green");
-//        F_Blue.addActionListener(e -> {
-//            workArea.setForeground(Color.BLUE);
-//        });
-//        F_Black.addActionListener(e -> {
-//            workArea.setForeground(Color.BLACK);
-//        });
-//        F_RED.addActionListener(e -> {
-//            workArea.setForeground(Color.RED);
-//        });
-//        F_Green.addActionListener(e -> {
-//            workArea.setForeground(Color.GREEN);
-//        });
-//        Font.add(F_Black);
-//        Font.add(F_Blue);
-//        Font.add(F_RED);
-//        Font.add(F_Green);
-//
-//        JMenu BlackGround = new JMenu("Background");
-//        JMenuItem B_Lg = new JMenuItem("LightGray");
-//        JMenuItem B_White = new JMenuItem("White");
-//        JMenuItem B_Pink = new JMenuItem("Pink");
-//        B_White.addActionListener(e -> {
-//            workArea.setBackground(Color.WHITE);
-//        });
-//        B_Lg.addActionListener(e -> {
-//            workArea.setBackground(Color.lightGray);
-//        });
-//        B_Pink.addActionListener(e -> {
-//            workArea.setBackground(Color.pink);
-//        });
-//        BlackGround.add(B_White);
-//        BlackGround.add(B_Lg);
-//        BlackGround.add(B_Pink);
-
         menu_view.add(viewItem_TD);
-//        menu_view.add(Font);
-//        menu_view.add(BlackGround);
-
         //Help Menu
         JMenuItem helpItem_about = new JMenuItem("about");
         menu_help.add(helpItem_about);
