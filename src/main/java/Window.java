@@ -81,10 +81,6 @@ public class Window extends JFrame {
         workArea.setFont(new Font("Cui", Font.PLAIN, 20));
     }
 
-
-
-
-
     void initMenuBar(){
         JMenuBar menuBar = new JMenuBar();
         menuBar.setSize(200,30);
@@ -259,50 +255,50 @@ public class Window extends JFrame {
     }
 
     void New() {
-        //Whether to save the current file when creating a JDialog
-        JDialog jd1 = new JDialog(jf);
-        jd1.setLayout(new FlowLayout(FlowLayout.LEFT));
-        jd1.setBounds((width_screen-260)/2,(height_screen-130)/2,260,130);
-        jd1.setVisible(true);
-        jd1.setTitle("Notepad");
-        //add buttons
-        JLabel jLabel = new JLabel("Do you want to save changes?");
-        jLabel.setFont(new Font("QWE",Font.PLAIN,16));
-        JButton save = new JButton("Save as 'txt'");
-        JButton savePDF = new JButton("Save as 'pdf'");
-        JButton notSave = new JButton("Don't save");
-        JButton Cancel = new JButton("Cancel");
-        JPanel jp = new JPanel();
-        jp.setLayout(new GridLayout(2,2));
-
-        //ActionListener
-        save.addActionListener(e -> {
-            saveAstxt();
-            jd1.dispose();
-        });
-        savePDF.addActionListener(e -> {
-            try {
-                saveAspdf();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-            jd1.dispose();
-        });
-        notSave.addActionListener(e -> {
-            workArea.setText("");
-            jd1.dispose();
-        });
-        Cancel.addActionListener(e -> {
-            jd1.dispose();
-        });
-
-        //add
-        jd1.add(jLabel);
-        jd1.add(jp);
-        jp.add(save);
-        jp.add(savePDF);
-        jp.add(notSave);
-        jp.add(Cancel);
+//        //Whether to save the current file when creating a JDialog
+//        JDialog jd1 = new JDialog(jf);
+//        jd1.setLayout(new FlowLayout(FlowLayout.LEFT));
+//        jd1.setBounds((width_screen-260)/2,(height_screen-130)/2,260,130);
+//        jd1.setVisible(true);
+//        jd1.setTitle("Notepad");
+//        //add buttons
+//        JLabel jLabel = new JLabel("Do you want to save changes?");
+//        jLabel.setFont(new Font("QWE",Font.PLAIN,16));
+//        JButton save = new JButton("Save as 'txt'");
+//        JButton savePDF = new JButton("Save as 'pdf'");
+//        JButton notSave = new JButton("Don't save");
+//        JButton Cancel = new JButton("Cancel");
+//        JPanel jp = new JPanel();
+//        jp.setLayout(new GridLayout(2,2));
+//
+//        //ActionListener
+//        save.addActionListener(e -> {
+//            saveAstxt();
+//            jd1.dispose();
+//        });
+//        savePDF.addActionListener(e -> {
+//            try {
+//                saveAspdf();
+//            } catch (Exception ex) {
+//                throw new RuntimeException(ex);
+//            }
+//            jd1.dispose();
+//        });
+//        notSave.addActionListener(e -> {
+//            workArea.setText("");
+//            jd1.dispose();
+//        });
+//        Cancel.addActionListener(e -> {
+//            jd1.dispose();
+//        });
+//
+//        //add
+//        jd1.add(jLabel);
+//        jd1.add(jp);
+//        jp.add(save);
+//        jp.add(savePDF);
+//        jp.add(notSave);
+//        jp.add(Cancel);
     }
 
     void open() {
