@@ -1,26 +1,50 @@
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.File;
+
 
 
 class WindowTest {
+    Window window = new Window();
+
     @Test
-    void openFile() {
-        Window window = Mockito.mock(Window.class);
-        window.open();
-        Mockito.verify(window).open();
+    void openRtf() {
+        //This file content is Qweqweqweqweqwe
+        File file = new File("testrtf.rtf");
+        window.openRtf(file);
+        assertEquals("Qweqweqweqweqwe\n", Window.result);
     }
 
     @Test
-    void savetest() {
-       Window window = Mockito.mock(Window.class);
-       window.saveAstxt();
-       Mockito.verify(window).saveAstxt();
+    void openOdt() {
+        File file = new File("TestOdt.odt");
+        window.openOdt(file);
+        assertEquals("Thisisatest odt file", Window.workArea.getText());
     }
 
     @Test
-    void saveAspdf() throws Exception {
-        Window window = Mockito.mock(Window.class);
-        window.saveAspdf();
-        Mockito.verify(window).saveAspdf();
+    void saveTxt(){
+        String s = "This is a txt";
+        File file = new File("TestTxt.txt");
+        window.saveAstxt(file,s);
+        window.openElse(file);
+        assertEquals(s+"\r\n",Window.workArea.getText());
+    }
+
+    @Test
+    void savePdf(){
+        //this will creat a new pdf in the root directory
+        Window.workArea.setText("qweqwe");
+         File file=new File("a.pdf");
+        boolean s;
+        try {
+           s= window.createPdf(file);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        assertTrue(s);
     }
 }

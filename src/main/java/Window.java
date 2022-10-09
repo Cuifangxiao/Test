@@ -6,6 +6,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,31 +41,33 @@ public class Window extends JFrame {
 
     public static org.fife.ui.rsyntaxtextarea.RSyntaxTextArea workArea;
     private RTextScrollPane  scrollPane;
-    public  JFrame jf = new JFrame();
+//    public  JFrame jf = new JFrame();
 
+    public static String result;
     public static File file;
-    private JLabel Time;
+    private JMenuItem Time;
     private FileDialog saveDia;
     private static String str = "";
 
-    private String currentTime;
-
     private int times = 0;
+
+    private String currentTime;
+    JMenuBar menuBar;
 
     Window() {
         init(width_screen, height_screen);
-        jf.setVisible(true);
-        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        while (true){
-            getTime();
-            Time.setText(currentTime);
-        }
+        this.setVisible(true);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//        while (true){
+//            getTime();
+//            Time.setText(currentTime);
+//        }
     }
 
     void init(int w, int h) {
         //set main table
-        jf.setTitle("Text Editor");
-        jf.setBounds((w - 500) / 2, (h - 700) / 2, 500, 700);
+        this.setTitle("Text Editor");
+        this.setBounds((w - 500) / 2, (h - 700) / 2, 500, 700);
 
         //Initialize the tab
         workArea = new org.fife.ui.rsyntaxtextarea.RSyntaxTextArea();
@@ -71,7 +75,7 @@ public class Window extends JFrame {
         scrollPane = new RTextScrollPane(workArea);
 
 
-        jf.add(scrollPane);
+        this.add(scrollPane);
 
         //Initialize the menu
         initMenuBar();
@@ -85,10 +89,11 @@ public class Window extends JFrame {
 
 
     void initMenuBar(){
-        JMenuBar menuBar = new JMenuBar();
+
+
+        menuBar = new JMenuBar();
         menuBar.setSize(200,30);
-        jf.setJMenuBar(menuBar);
-        Time = new JLabel();
+        this.setJMenuBar(menuBar);
 
         //Menu Bar
         JMenu menu_file = new JMenu("  File  ");
@@ -99,11 +104,6 @@ public class Window extends JFrame {
         menuBar.add(menu_edit);
         menuBar.add(menu_view);
         menuBar.add(menu_help);
-
-        //Add here fot Time&Date and let it not visible
-        menuBar.add(Time);
-        Time.setVisible(false);
-
 
         //File
         JMenuItem fileItem_new = new JMenuItem("new");
@@ -145,18 +145,10 @@ public class Window extends JFrame {
         JMenuItem F_Black = new JMenuItem("Black");
         JMenuItem F_RED = new JMenuItem("Red");
         JMenuItem F_Green = new JMenuItem("Green");
-        F_Blue.addActionListener(e -> {
-            workArea.setForeground(Color.BLUE);
-        });
-        F_Black.addActionListener(e -> {
-            workArea.setForeground(Color.BLACK);
-        });
-        F_RED.addActionListener(e -> {
-            workArea.setForeground(Color.RED);
-        });
-        F_Green.addActionListener(e -> {
-            workArea.setForeground(Color.GREEN);
-        });
+        F_Blue.addActionListener(e -> workArea.setForeground(Color.BLUE));
+        F_Black.addActionListener(e -> workArea.setForeground(Color.BLACK));
+        F_RED.addActionListener(e -> workArea.setForeground(Color.RED));
+        F_Green.addActionListener(e -> workArea.setForeground(Color.GREEN));
         Font.add(F_Black);
         Font.add(F_Blue);
         Font.add(F_RED);
@@ -166,15 +158,9 @@ public class Window extends JFrame {
         JMenuItem B_Lg = new JMenuItem("LightGray");
         JMenuItem B_White = new JMenuItem("White");
         JMenuItem B_Pink = new JMenuItem("Pink");
-        B_White.addActionListener(e -> {
-            workArea.setBackground(Color.WHITE);
-        });
-        B_Lg.addActionListener(e -> {
-            workArea.setBackground(Color.lightGray);
-        });
-        B_Pink.addActionListener(e -> {
-            workArea.setBackground(Color.pink);
-        });
+        B_White.addActionListener(e -> workArea.setBackground(Color.WHITE));
+        B_Lg.addActionListener(e -> workArea.setBackground(Color.lightGray));
+        B_Pink.addActionListener(e -> workArea.setBackground(Color.pink));
         BlackGround.add(B_White);
         BlackGround.add(B_Lg);
         BlackGround.add(B_Pink);
@@ -234,6 +220,22 @@ public class Window extends JFrame {
 
         //Time and Date
         viewItem_TD.addActionListener(e -> TD());
+
+        Time = new JMenuItem();
+        class TimeActionListener implements ActionListener {
+            public TimeActionListener(){
+                javax.swing.Timer t=new javax.swing.Timer(1000,this);
+                t.start();
+            }
+            @Override
+            public void actionPerformed(ActionEvent ae){
+                getTime();
+                Time.setText(currentTime);
+            }
+        }
+        Time.addActionListener(new TimeActionListener());
+        menuBar.add(Time);
+        Time.setVisible(false);
     }
 
     void Search(){
@@ -259,7 +261,7 @@ public class Window extends JFrame {
 
     void New() {
         //Whether to save the current file when creating a JDialog
-        JDialog jd1 = new JDialog(jf);
+        JDialog jd1 = new JDialog(this);
         jd1.setLayout(new FlowLayout(FlowLayout.LEFT));
         jd1.setBounds((width_screen-260)/2,(height_screen-130)/2,260,130);
         jd1.setVisible(true);
@@ -291,9 +293,7 @@ public class Window extends JFrame {
             workArea.setText("");
             jd1.dispose();
         });
-        Cancel.addActionListener(e -> {
-            jd1.dispose();
-        });
+        Cancel.addActionListener(e -> jd1.dispose());
 
         //add
         jd1.add(jLabel);
@@ -304,15 +304,15 @@ public class Window extends JFrame {
         jp.add(Cancel);
     }
 
-    void open() {
+    File open() {
         JFileChooser jFileChooser = new JFileChooser();
-        int chose = jFileChooser.showOpenDialog(null);
+        int chose = jFileChooser.showOpenDialog(this);
         if (chose == JFileChooser.CANCEL_OPTION) {
-            return ;
+            return null;
         }
         File F = jFileChooser.getSelectedFile();
         workArea.setText("");
-        jf.setTitle(F.getName());
+        this.setTitle(F.getName());
         if(F.getName().contains(".rtf")){
             openRtf(F);
         }else if(F.getName().contains(".odt")){
@@ -320,12 +320,13 @@ public class Window extends JFrame {
         }else {
             openElse(F);
         }
+        return F;
     }
 
     //Open .rtf
     void openRtf(File F){
         DefaultStyledDocument styleDoc = new DefaultStyledDocument();
-        String result;
+        result = "";
         try {
             InputStream inputStream = new FileInputStream(F);
             try {
@@ -407,7 +408,7 @@ public class Window extends JFrame {
         }
     }
     void exit(){
-        jf.dispose();
+        this.dispose();
     }
 
     void about(){
@@ -443,16 +444,18 @@ public class Window extends JFrame {
 
         fileS = new File(dirPath,fileName);
 
+      saveAstxt(fileS,workArea.getText());
+    }
+
+    void saveAstxt(File fileS,String text){
         try{
             BufferedWriter bufw = new BufferedWriter(new FileWriter(fileS));
-            String text = workArea.getText();
             bufw.write(text);
             bufw.close();
         }catch(IOException er){
             throw new RuntimeException("file saved failed");
         }
     }
-
 
     void saveAspdf() throws Exception{
         saveDia = new FileDialog(this,"save as(B)",FileDialog.SAVE);
@@ -468,14 +471,14 @@ public class Window extends JFrame {
         }
         file = new File(dirPath,fileName);
         try {
-            createPdf();
+            createPdf(file);
         }catch (IOException er){
             throw new RuntimeException("file saved failed");
         }
     }
 
 
-    public void createPdf() throws Exception {
+    public boolean createPdf(File file) throws Exception {
         String s = workArea.getText();
         String[] strings = s.split("\n");
         PDDocument document=new PDDocument();
@@ -486,7 +489,6 @@ public class Window extends JFrame {
         my_page.getResources().add(font);
 
         //set font for pdf
-        workArea.getText(0,1);
         for(int i=0;i<strings.length;i++){
             contentStream.beginText();
             contentStream.setFont(font,10);
@@ -497,11 +499,12 @@ public class Window extends JFrame {
         contentStream.close();
         document.save(file);
         document.close();
+        return true;
     }
 
     void printer() throws Exception {
         file=new File("D:","a.pdf");
-        createPdf();
+        createPdf(file);
         print print=new print();
         print.PDFprint();
         if(file.exists() && file.isFile()){

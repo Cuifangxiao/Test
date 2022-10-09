@@ -1,14 +1,14 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class searchTest {
-
+    search search1 = new search(200,200);
+    Window window = new Window();
     @Test
     void search_word() {
-        search search= Mockito.mock(search.class);
-        search.search_word();
-        Mockito.verify(search).search_word();
+        Window.workArea.setText("int int int ");
+        search.lookFor_field.setText("int");
+        search1.search_word();
+        Assertions.assertEquals(3,search.index);
     }
 }

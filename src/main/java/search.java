@@ -7,13 +7,13 @@ import java.awt.*;
 public class search extends JDialog {
     JDialog jDialog = new JDialog();
     JLabel lookFor;
-    JTextField lookFor_field;
+    public static JTextField lookFor_field;
     JButton jb1;
     JLabel replace;
     JTextField replace_field;
     JButton jb2;
 
-    private int index;
+    public static int index;
 
     public search(int w,int h){
         jDialog.setBounds((w-400)/2,(h-150)/2,400,150);
