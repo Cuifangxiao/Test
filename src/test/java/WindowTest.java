@@ -14,8 +14,8 @@ class WindowTest {
     void openRtf() {
         //This file content is Qweqweqweqweqwe
         File file = new File("testrtf.rtf");
-        window.openRtf(file);
-        assertEquals("Qweqweqweqweqwe\n", Window.result);
+        String s = window.openRtf(file);
+        assertEquals("Qweqweqweqweqwe\n", s);
     }
 
     @Test

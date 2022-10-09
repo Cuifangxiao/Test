@@ -43,7 +43,7 @@ public class Window extends JFrame {
     private RTextScrollPane  scrollPane;
 //    public  JFrame jf = new JFrame();
 
-    public static String result;
+    public String result;
     public static File file;
     private JMenuItem Time;
     private FileDialog saveDia;
@@ -320,7 +320,7 @@ public class Window extends JFrame {
     }
 
     //Open .rtf
-    void openRtf(File F){
+    String openRtf(File F){
         DefaultStyledDocument styleDoc = new DefaultStyledDocument();
         result = "";
         try {
@@ -335,6 +335,7 @@ public class Window extends JFrame {
             throw new RuntimeException(e);
         }
         workArea.setText(result);
+        return result;
     }
 
     //open odt File
