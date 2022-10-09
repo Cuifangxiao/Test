@@ -13,7 +13,7 @@ public class search extends JDialog {
     JTextField replace_field;
     JButton jb2;
 
-    public static int index;
+    public int index;
 
     public search(int w,int h){
         jDialog.setBounds((w-400)/2,(h-150)/2,400,150);
@@ -119,13 +119,13 @@ public class search extends JDialog {
         Window.workArea.setText(demo.replace(old_word,new_word));
     }
 
-    void search_word(){
+    int search_word(){
         String word = lookFor_field.getText();
         int x = Window.workArea.getText().indexOf(word,index);
         //if(not find) return
         if(x == -1) {
             JOptionPane.showMessageDialog(null,"No searching","Warning Message",JOptionPane.PLAIN_MESSAGE);
-            return;
+            return index;
         }
         //if find index+length
         int len = word.length();
@@ -133,6 +133,7 @@ public class search extends JDialog {
         //Set Shadows
         Window.workArea.setSelectionStart(x);
         Window.workArea.setSelectionEnd(x+len);
+        return index;
     }
 
 

@@ -8,7 +8,7 @@ class searchTest {
     void search_word() {
         Window.workArea.setText("int int int ");
         search.lookFor_field.setText("int");
-        search1.search_word();
-        Assertions.assertEquals(3,search.index);
+        int x = search1.search_word();
+        Assertions.assertEquals(3,x);
     }
 }
