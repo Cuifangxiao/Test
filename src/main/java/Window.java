@@ -36,8 +36,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class Window extends JFrame {
-    private static int width_screen = RunHere.width;
-    private static int height_screen = RunHere.height;
+    private int width_screen = RunHere.width;
+    private int height_screen = RunHere.height;
 
     public static org.fife.ui.rsyntaxtextarea.RSyntaxTextArea workArea;
     private RTextScrollPane  scrollPane;
@@ -58,10 +58,6 @@ public class Window extends JFrame {
         init(width_screen, height_screen);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        while (true){
-//            getTime();
-//            Time.setText(currentTime);
-//        }
     }
 
     void init(int w, int h) {
